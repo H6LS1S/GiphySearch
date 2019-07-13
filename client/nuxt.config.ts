@@ -1,4 +1,6 @@
 import NuxtConfiguration from '@nuxt/config';
+import VuetifyLoaderPlugin from 'vuetify-loader/lib/plugin';
+import colors from 'vuetify/es5/util/colors'
 
 import { ConfigService } from './utils/config/config.service';
 const configService = new ConfigService();
@@ -38,16 +40,31 @@ const config: NuxtConfiguration = {
   /*
    ** Global CSS
    */
-  css: [],
+  css: ['vuetify/src/styles/styles.sass'],
   /*
    ** Plugins to load before mounting the App
    */
   plugins: [ '~/mixins' ],
-  /*
-   * Build configuration
-   */
 
   modules: ['@nuxtjs/axios'],
+
+  devModules: ['@nuxtjs/vuetify'],
+
+  vuetify: {
+    theme: {
+      themes: {
+        light: {
+          primary: colors.blue.base,
+          secondary: colors.orange.base,
+          accent: colors.indigo.base,
+          error: colors.red.base,
+          warning: colors.deepOrange.base,
+          info: colors.cyan.base,
+          success: colors.green.base
+        },
+      },
+    },
+  },
 
   axios: {
     baseURL: 'http://127.0.0.1:8081/api',
@@ -56,7 +73,7 @@ const config: NuxtConfiguration = {
   build: {
     extractCSS: true,
     transpile: ['vuetify/lib'],
-    plugins: [],
+    plugins: [new VuetifyLoaderPlugin()],
     typescript: {
       typeCheck: true,
     },

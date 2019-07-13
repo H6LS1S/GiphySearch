@@ -23,9 +23,11 @@
   },
   "devDependencies": {
     "@nuxt/typescript": "2.8.1",
+    "@nuxtjs/vuetify": "^1.0.0-beta.6",
     "@types/dotenv": "^6.1.1",
     "@types/node": "10.14.8",
     "@types/webpack-env": "1.13.9",
+    "prettier": "^1.18.2",
     "vue-property-decorator": "^8.2.1"
   }
 }
