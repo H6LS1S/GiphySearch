@@ -12,7 +12,6 @@ import { JwtPayload, JwtToken } from './interfaces/jwt.interface';
 
 @Injectable()
 export class AuthService {
-  [x: string]: any;
   constructor(
     private readonly configService: ConfigService,
     private readonly usersService: UsersService,
@@ -33,6 +32,9 @@ export class AuthService {
 
   async validate(payload: UserCreateDto): Promise<Boolean> {
     const user = await this.usersService.selectByEmail(payload.email);
-    return await this.compare(payload, user);
+    if (user) {
+      return await this.compare(payload, user);
+    }
+    return false;
   }
 }
