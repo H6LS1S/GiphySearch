@@ -1,21 +1,28 @@
 <template>
   <ValidationObserver
     v-slot="{ invalid }"
-    ref="observer" tag="form"
+    ref="observer"
+    tag="form"
     @submit.prevent="singup()"
   >
     <TextField
       v-model="email"
-      type="email" rules="required|email"
-      outlined autofocus label="Email"
+      type="email"
+      rules="required|email"
+      outlined
+      autofocus
+      label="Email"
       prepend-icon="mdi-email-outline"
     />
     <TextField
       v-model="password"
       :type="show1 ? 'text' : 'password'"
       :append-icon="changeVisibility(show1)"
-      rules="required|min:8" vid="confirm"
-      outlined counter label="Password"
+      rules="required|min:8"
+      vid="confirm"
+      outlined
+      counter
+      label="Password"
       prepend-icon="mdi-lock-outline"
       @click:append="show1 = !show1"
     />
@@ -23,7 +30,9 @@
       :type="show2 ? 'text' : 'password'"
       :append-icon="changeVisibility(show2)"
       rules="required|confirmed:confirm"
-      outlined counter label="Confirmed password"
+      outlined
+      counter
+      label="Confirmed password"
       prepend-icon="mdi-lock-reset"
       @click:append="show2 = !show2"
     />
@@ -56,10 +65,10 @@ export default class SignUpPage extends Vue {
 
   changeVisibility(condition) {
     if (condition) {
-      return 'mdi-eye-outline'
+      return 'mdi-eye-outline';
     }
 
-    return 'mdi-eye-off-outline'
+    return 'mdi-eye-off-outline';
   }
 }
 </script>
