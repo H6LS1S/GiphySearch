@@ -18,8 +18,11 @@
                   info
                 </span>
               </v-card-text>
-              <v-btn v-if="!getFlowType()" to="/signin" exact outlined block>
-                Sign in
+              <v-btn
+                :to="getFlowType() ?'/signup': '/signin'" exact
+                outlined block
+              >
+                Next :3
               </v-btn>
             </v-card>
           </v-flex>
