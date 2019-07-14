@@ -44,7 +44,7 @@ const config: NuxtConfiguration = {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [ '~/mixins' ],
+  plugins: [ '~/mixins', '~/plugins/vee-validate'],
 
   modules: ['@nuxtjs/axios'],
 
@@ -75,7 +75,7 @@ const config: NuxtConfiguration = {
     transpile: ['vuetify/lib'],
     plugins: [new VuetifyLoaderPlugin()],
     typescript: {
-      typeCheck: true,
+      typeCheck: false,
     },
   },
 };
