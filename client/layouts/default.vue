@@ -87,7 +87,9 @@
 <script>
 import { Component, Vue } from 'vue-property-decorator';
 
-@Component()
+@Component({
+  middleware: ['auth'],
+})
 export default class DefaultLayuot extends Vue {
   pages = [
     { path: '/', icon: 'mdi-magnify' },

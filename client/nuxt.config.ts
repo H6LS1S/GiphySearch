@@ -46,7 +46,7 @@ const config: NuxtConfiguration = {
    */
   plugins: [ '~/mixins', '~/plugins/vee-validate'],
 
-  modules: ['@nuxtjs/axios'],
+  modules: ['@nuxtjs/axios', '@nuxtjs/auth'],
 
   devModules: ['@nuxtjs/vuetify'],
 
@@ -68,6 +68,26 @@ const config: NuxtConfiguration = {
 
   axios: {
     baseURL: 'http://127.0.0.1:8081/api',
+  },
+
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: { url: '/auth', method: 'post', propertyName: 'token' },
+          user: { url: '/users', method: 'get', propertyName: '' },
+          logout: false,
+        },
+        tokenRequired: true,
+        tokenType: 'Bearer',
+      },
+    },
+    redirect: {
+      login: '/signin',
+      logout: '/signin',
+      callback: '/signin',
+      user: '/signin',
+    },
   },
 
   build: {

@@ -45,7 +45,9 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 
-@Component({})
+@Component({
+  middleware: ['guest'],
+})
 export default class BlankLayuot extends Vue {
   getFlowType() {
     return this.$route.name === 'signin';

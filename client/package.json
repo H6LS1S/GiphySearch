@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@mdi/font": "^3.7.95",
+    "@nuxtjs/auth": "^4.8.1",
     "@nuxtjs/axios": "^5.5.4",
     "dotenv": "^8.0.0",
     "nuxt": "2.8.1",
