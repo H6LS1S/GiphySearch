@@ -5,7 +5,7 @@
         v-for="(item, i) in data"
         :key="i"
         fill-dot
-        icon="mdi-history"
+        icon="mdi-pound"
       >
         <v-layout align-center justify-start wrap pt-1>
           <span v-html="item.phrase" class="title" />
