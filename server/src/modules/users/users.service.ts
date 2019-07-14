@@ -15,4 +15,12 @@ export class UsersService {
   async create(user: UserCreateDto): Promise<Users> {
     return await this.usersRepository.save(user);
   }
+
+  async selectByEmail(email: string): Promise<Users> {
+    return await this.usersRepository.findOne({
+      where: {
+        email: email,
+      },
+    });
+  }
 }
