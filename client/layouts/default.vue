@@ -13,8 +13,8 @@
         <v-img :src="getBackground()" :gradient="getGradient()" />
       </template>
 
-      <v-app-bar-nav-icon @click="$router.go(-1)">
-        <v-icon v-html="changeIcon()" />
+      <v-app-bar-nav-icon @click="logout">
+        <v-icon>mdi-logout</v-icon>
       </v-app-bar-nav-icon>
 
       <v-toolbar-title>GiphySearch</v-toolbar-title>
@@ -111,15 +111,13 @@ export default class DefaultLayuot extends Vue {
     return `https://picsum.photos/${width}/${height}?random`;
   }
 
-  changeIcon() {
-    if (this.$route.path === '/') {
-      return 'mdi-home';
-    }
-    return 'mdi-arrow-left';
-  }
-
   getGradient() {
     return `to top right, rgba(81, 176, 255, .7), rgba(63, 81, 181, .7)`;
+  }
+
+  logout() {
+    this.$router.push('/admin/auth')
+    return this.$auth.logout();
   }
 }
 </script>

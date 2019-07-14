@@ -3,7 +3,7 @@
     v-slot="{ invalid }"
     ref="observer"
     tag="form"
-    @submit.prevent="singup()"
+    @submit.prevent="singIn()"
   >
     <TextField
       v-model="email"
@@ -27,7 +27,7 @@
       @click:append="show1 = !show1"
     />
 
-    <v-btn color="primary" block>
+    <v-btn color="primary" block @click="singIn">
       Sign in
     </v-btn>
   </ValidationObserver>
@@ -58,6 +58,22 @@ export default class SignInPage extends Vue {
     }
 
     return 'mdi-eye-off-outline';
+  }
+
+  async singIn() {
+    const validation = await this.$refs.observer.validate()
+    if (!validation) return;
+
+    return await this.$auth
+      .loginWith('local', {
+        data: {
+          email: this.email,
+          password: this.password,
+        },
+      })
+      .then(data => {
+        this.$router.push('/');
+      })
   }
 }
 </script>

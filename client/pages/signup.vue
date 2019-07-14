@@ -3,7 +3,7 @@
     v-slot="{ invalid }"
     ref="observer"
     tag="form"
-    @submit.prevent="singup()"
+    @submit.prevent="singUp()"
   >
     <TextField
       v-model="email"
@@ -37,7 +37,7 @@
       @click:append="show2 = !show2"
     />
 
-    <v-btn color="primary" block>
+    <v-btn color="primary" block @click="singUp">
       Sign up
     </v-btn>
   </ValidationObserver>
@@ -69,6 +69,27 @@ export default class SignUpPage extends Vue {
     }
 
     return 'mdi-eye-off-outline';
+  }
+
+  async singUp() {
+    const validation = await this.$refs.observer.validate()
+    if (!validation) return;
+
+    await this.$axios.post('users', {
+      email: this.email,
+      password: this.password,
+    });
+
+    return await this.$auth
+      .loginWith('local', {
+        data: {
+          email: this.email,
+          password: this.password,
+        },
+      })
+      .then(data => {
+        this.$router.push('/');
+      })
   }
 }
 </script>
