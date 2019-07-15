@@ -3,32 +3,27 @@ import {
   Column,
   Entity,
   PrimaryGeneratedColumn,
-  OneToMany,
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm';
 
-import { History } from '../history/history.entity';
+import { Users } from '../users/users.entity';
 
-@Entity('Users')
-export class Users extends BaseEntity {
+@Entity('History')
+export class History extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column('varchar', {
     nullable: false,
-    unique: true,
-    name: 'email',
+    unique: false,
+    name: 'tag',
   })
-  email: string;
+  tag: string;
 
-  @Column('varchar', {
-    nullable: false,
-    unique: true,
-    name: 'password',
-  })
-  password: string;
-
-  @OneToMany(_type => History, history => history.user)
-  history?: History[];
+  @ManyToOne(_type => Users)
+  @JoinColumn({ name: 'user', referencedColumnName: 'id' })
+  user: Users;
 
   @Column('datetime', {
     nullable: false,
