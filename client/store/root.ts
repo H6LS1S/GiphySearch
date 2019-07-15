@@ -30,7 +30,7 @@ export const actions: ActionTree<RootState, RootState> = {
 
   async selectByTag({ commit }, tag = '') {
     const { data } = await this.$axios.$get(`search/${tag}`);
-    commit('setCurrentTag', tag)
+    if (tag !== '') commit('setCurrentTag', tag)
     commit('setGallety', Array.isArray(data) ? data : [data])
   },
 
