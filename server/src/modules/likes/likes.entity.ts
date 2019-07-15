@@ -2,39 +2,38 @@ import {
   BaseEntity,
   Column,
   Entity,
+  Index,
   PrimaryGeneratedColumn,
-  OneToMany,
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
 
+import { History } from '../history/history.entity';
 import { Users } from '../users/users.entity';
-import { Likes } from '../likes/likes.entity';
 
-@Entity('History')
-export class History extends BaseEntity {
+@Entity('Likes')
+@Index(['user', 'image'], { unique: true })
+export class Likes extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column('varchar', {
     nullable: false,
     unique: false,
-    name: 'tag',
+    name: 'image',
   })
-  tag: string;
+  image: string;
 
-  @ManyToOne(_type => Users, users => users.history, {
+  @ManyToOne(_type => Users, users => users.likes, {
     nullable: false,
   })
+  @JoinColumn({ name: 'user', referencedColumnName: 'id' })
   user: Users;
 
-  @OneToMany(_type => Likes, likes => likes.history, {
+  @ManyToOne(_type => History, history => history.likes, {
     nullable: true,
-    cascade: true,
-    eager: true,
   })
-  @JoinColumn({ name: 'likes' })
-  likes: Likes[];
+  history?: History;
 
   @Column('datetime', {
     nullable: false,

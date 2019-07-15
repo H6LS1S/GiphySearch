@@ -4,9 +4,11 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   OneToMany,
+  JoinColumn,
 } from 'typeorm';
 
 import { History } from '../history/history.entity';
+import { Likes } from '../likes/likes.entity';
 
 @Entity('Users')
 export class Users extends BaseEntity {
@@ -27,8 +29,21 @@ export class Users extends BaseEntity {
   })
   password: string;
 
-  @OneToMany(_type => History, history => history.user)
-  history?: History[];
+  @OneToMany(_type => History, history => history.user, {
+    nullable: true,
+    cascade: true,
+    eager: true,
+  })
+  @JoinColumn({ name: 'history' })
+  history: History[];
+
+  @OneToMany(_type => Likes, likes => likes.user, {
+    nullable: true,
+    cascade: true,
+    eager: true,
+  })
+  @JoinColumn({ name: 'likes' })
+  likes: Likes[];
 
   @Column('datetime', {
     nullable: false,
