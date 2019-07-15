@@ -1,11 +1,24 @@
 <template>
   <v-container grid-list-lg fill-height>
-    <v-layout align-center justify-cente row wrap>
-      <v-flex v-for="(item, i) in data" :key="i" xs12 sm6 md4 lg3 xl2>
+    <v-layout align-center justify-center row wrap>
+      <v-flex xs12>
+        <v-text-field
+          shaped
+          rounded
+          outlined
+          clearable
+          label="Search"
+          @change="searchByTag"
+        />
+      </v-flex>
+      <v-flex
+        v-for="(item, i) in getGallety" :key="i"
+        xs12 sm6 md4 lg3 xl2
+      >
         <v-card>
           <v-img
-            :src="item.src"
-            :lazy-src="item.lazy"
+            :src="item.images['480w_still'].url"
+            :lazy-src="item.images['480w_still'].url"
             aspect-ratio="1"
             class="grey lighten-2"
           >
@@ -17,7 +30,7 @@
           </v-img>
 
           <v-card-actions>
-            <span class="text-truncate">Tag</span>
+            <span class="text-truncate">{{ item.title }}</span>
             <v-spacer />
             <span>{{ item.likes }}</span>
             <v-btn icon>
@@ -32,17 +45,26 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import { mapGetters, mapActions } from 'vuex';
 
 @Component({
   head: {
     title: 'Home',
   },
+  computed: {
+    ...mapGetters(['getGallety']),
+  },
+  methods: {
+    ...mapActions(['selectByTag']),
+  },
+  async fetch ({ store, params }) {
+    await store.dispatch('selectByTag');
+  },
 })
 export default class HomePage extends Vue {
-  data = new Array(Math.floor(Math.random() * 10)).fill('').map((item, i) => ({
-    src: `https://picsum.photos/1366/728?image${i}.jpg`,
-    lazy: `https://picsum.photos/25/10?image${i}.jpg`,
-    likes: Math.floor(Math.random() * 10),
-  }));
+  async searchByTag(tag) {
+    if(!tag) return 
+    return this.selectByTag(tag)
+  }
 }
 </script>

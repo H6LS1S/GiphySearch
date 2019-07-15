@@ -6,6 +6,7 @@ import { DatabaseModule } from '../database/database.module';
 import { AuthModule } from '../modules/auth/auth.module';
 import { UsersModule } from '../modules/users/users.module';
 import { LikesModule } from '../modules/likes/likes.module';
+import { SearchModule } from '../modules/search/search.module';
 import { HistoryModule } from '../modules/history/history.module';
 
 @Global()
@@ -17,6 +18,7 @@ import { HistoryModule } from '../modules/history/history.module';
     AuthModule,
     UsersModule,
     LikesModule,
+    SearchModule,
     HistoryModule,
   ],
 })

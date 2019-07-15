@@ -6,8 +6,24 @@ export interface State {
 }
 export const state = (): State => ({});
 
-export const getters: GetterTree<RootState, RootState> = {};
+export const getters: GetterTree<RootState, RootState> = {
+  getGallety(state) {
+    return state.gallery
+  }
+};
 
-export const actions: ActionTree<RootState, RootState> = {};
+export const actions: ActionTree<RootState, RootState> = {
+  async selectByTag({ commit }, tag = '') {
+    const { data } = await this.$axios.$get(`search/${tag}`);
+    if(Array.isArray(data)) {
+      return commit('setGallety', data)
+    }
+    return commit('setGallety', [data])
+  }
+};
 
-export const mutations: MutationTree<RootState> = {};
+export const mutations: MutationTree<RootState> = {
+  setGallety(state: RootState, data): void {
+    state.gallery = data;
+  },
+};
