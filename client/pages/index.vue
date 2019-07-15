@@ -3,12 +3,13 @@
     <v-layout align-center justify-center row wrap>
       <v-flex xs12>
         <v-text-field
+          :value="getCurrentTag"
           shaped
           rounded
           outlined
           clearable
           label="Search"
-          @change="searchByTag"
+          @change="selectByTag"
         />
       </v-flex>
       <v-flex
@@ -52,19 +53,11 @@ import { mapGetters, mapActions } from 'vuex';
     title: 'Home',
   },
   computed: {
-    ...mapGetters(['getGallety']),
+    ...mapGetters(['getGallety', 'getCurrentTag']),
   },
   methods: {
     ...mapActions(['selectByTag']),
   },
-  async fetch ({ store, params }) {
-    await store.dispatch('selectByTag');
-  },
 })
-export default class HomePage extends Vue {
-  async searchByTag(tag) {
-    if(!tag) return 
-    return this.selectByTag(tag)
-  }
-}
+export default class HomePage extends Vue {}
 </script>
