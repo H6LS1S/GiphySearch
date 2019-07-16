@@ -4,40 +4,45 @@ import { RootState } from 'store';
 export interface State {
   [x: string]: any;
 }
-export const state = (): State => ({});
+export const state = (): State => ({
+  gallery: [],
+  history: [],
+  currentTag: '',
+});
 
 export const getters: GetterTree<RootState, RootState> = {
   getGallety(state) {
-    return state.gallery
+    return state.gallery;
   },
 
   getHistory(state) {
-    return state.history
+    return state.history;
   },
 
   getCurrentTag(state) {
-    return state.currentTag
+    return state.currentTag;
   },
 };
 
 export const actions: ActionTree<RootState, RootState> = {
   async selectGallery({ commit }) {
-    const { data } = await this.$axios.$get(`search/`);
-    return commit('setGallety', data)
+    const data = await this.$axios.$get(`search/`);
+    return commit('setGallety', data);
   },
 
   async searchByTag({ commit, dispatch }, tag) {
     if (tag) {
-      commit('setCurrentTag', tag)
-      const { data } = await this.$axios.$get(`search/${tag}`);
-      return commit('setGallety', data)
+      commit('setCurrentTag', tag);
+      const data = await this.$axios.$get(`search/${tag}`);
+      commit('setGallety', data);
+      return await dispatch('selectHistory');
     }
-    return await dispatch('selectGallery')
+    return await dispatch('selectGallery');
   },
 
   async selectHistory({ commit }) {
     const data = await this.$axios.$get(`history/`);
-    return commit('setHistory', data)
+    return commit('setHistory', data);
   },
 };
 

@@ -61,7 +61,7 @@ export default class SignInPage extends Vue {
   }
 
   async singIn() {
-    const validation = await this.$refs.observer.validate()
+    const validation = await this.$refs.observer.validate();
     if (!validation) return;
 
     return await this.$auth
@@ -73,7 +73,7 @@ export default class SignInPage extends Vue {
       })
       .then(data => {
         this.$router.push('/');
-      })
+      });
   }
 }
 </script>

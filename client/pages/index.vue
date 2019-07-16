@@ -12,10 +12,7 @@
           @change="searchByTag"
         />
       </v-flex>
-      <v-flex
-        v-for="(item, i) in getGallety" :key="i"
-        xs12 sm6 md4 lg3 xl2
-      >
+      <v-flex v-for="(item, i) in getGallety" :key="i" xs12 sm6 md4 lg3 xl2>
         <v-card>
           <v-img
             :src="item.images['480w_still'].url"
@@ -34,7 +31,7 @@
             <span class="text-truncate">{{ item.title }}</span>
             <v-spacer />
             <span>{{ item.likes }}</span>
-            <v-btn icon @click="toogleLike(item.id)">
+            <v-btn icon>
               <v-icon>mdi-heart</v-icon>
             </v-btn>
           </v-card-actions>
@@ -59,8 +56,8 @@ import { mapGetters, mapActions } from 'vuex';
     ...mapActions(['searchByTag']),
   },
   async fetch({ store }) {
-    return await store.dispatch('selectGallery')
-  }
+    return await store.dispatch('selectGallery');
+  },
 })
 export default class HomePage extends Vue {}
 </script>

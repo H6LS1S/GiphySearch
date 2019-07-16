@@ -18,10 +18,7 @@
                   info
                 </span>
               </v-card-text>
-              <v-btn
-                :to="getFlowType() ?'/signup': '/signin'" exact
-                outlined block
-              >
+              <v-btn :to="changeForm()" exact outlined block>
                 Next :3
               </v-btn>
             </v-card>
@@ -51,6 +48,10 @@ import { Component, Vue } from 'vue-property-decorator';
 export default class BlankLayuot extends Vue {
   getFlowType() {
     return this.$route.name === 'signin';
+  }
+
+  changeForm() {
+    return this.getFlowType() ? '/signup' : '/signin';
   }
 }
 </script>

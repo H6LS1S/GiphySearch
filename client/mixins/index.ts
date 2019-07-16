@@ -8,6 +8,6 @@ Vue.mixin({
         month: 'long',
         day: 'numeric',
       });
-    }
+    },
   },
 });

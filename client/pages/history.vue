@@ -2,8 +2,10 @@
   <v-container py-0>
     <v-timeline :dense="denseTimeline">
       <v-timeline-item
-        v-for="(item, i) in getHistory" :key="i"
-        fill-dot icon="mdi-pound"
+        v-for="(item, i) in getHistory"
+        :key="i"
+        fill-dot
+        icon="mdi-pound"
       >
         <v-layout align-center justify-start wrap pt-1>
           <span v-html="item.tag" class="title" />
@@ -43,12 +45,12 @@ import { mapGetters } from 'vuex';
     ...mapGetters(['getHistory']),
 
     denseTimeline() {
-      return this.$vuetify.breakpoint.smAndDown
-    }
+      return this.$vuetify.breakpoint.smAndDown;
+    },
   },
   async fetch({ store }) {
-    return await store.dispatch('selectHistory')
-  }
+    return await store.dispatch('selectHistory');
+  },
 })
 export default class HistoryPage extends Vue {}
 </script>

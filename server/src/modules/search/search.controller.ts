@@ -21,7 +21,7 @@ export class SearchController {
   @Get()
   @ApiBearerAuth()
   @UseGuards(AuthGuard('jwt'))
-  async selectTrending(): Promise<Users> {
+  async selectTrending(): Promise<[]> {
     return await this.searchService.selectTrending();
   }
 
@@ -31,7 +31,7 @@ export class SearchController {
   async selectByTag(
     @User() user: Users,
     @Param('tag') tag: string,
-  ): Promise<Users> {
+  ): Promise<[]> {
     await this.historyService.create(user, tag);
     return await this.searchService.selectByTag(tag);
   }

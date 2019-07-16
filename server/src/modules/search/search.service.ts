@@ -10,11 +10,13 @@ export class SearchService {
     this.configService.getSetting('GIPHY_API_TOKEN'),
   );
 
-  async selectTrending() {
-    return await this.giphy.trending();
+  async selectTrending(): Promise<[]> {
+    const { data } = await this.giphy.trending();
+    return data;
   }
 
-  async selectByTag(tag: string) {
-    return await this.giphy.search(tag);
+  async selectByTag(tag: string): Promise<[]> {
+    const { data } = await this.giphy.search(tag);
+    return data;
   }
 }

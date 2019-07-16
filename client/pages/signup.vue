@@ -72,7 +72,7 @@ export default class SignUpPage extends Vue {
   }
 
   async singUp() {
-    const validation = await this.$refs.observer.validate()
+    const validation = await this.$refs.observer.validate();
     if (!validation) return;
 
     await this.$axios.post('users', {
@@ -89,7 +89,7 @@ export default class SignUpPage extends Vue {
       })
       .then(data => {
         this.$router.push('/');
-      })
+      });
   }
 }
 </script>
