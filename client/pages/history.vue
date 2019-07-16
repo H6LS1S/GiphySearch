@@ -1,6 +1,6 @@
 <template>
   <v-container py-0>
-    <v-timeline :dense="$vuetify.breakpoint.smAndDown">
+    <v-timeline :dense="denseTimeline">
       <v-timeline-item
         v-for="(item, i) in getHistory" :key="i"
         fill-dot icon="mdi-pound"
@@ -33,7 +33,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
 
 @Component({
   head: {
@@ -41,16 +41,14 @@ import { mapGetters, mapActions } from 'vuex';
   },
   computed: {
     ...mapGetters(['getHistory']),
-    ...mapActions(['selectHistory']),
+
+    denseTimeline() {
+      return this.$vuetify.breakpoint.smAndDown
+    }
   },
+  async fetch({ store }) {
+    return await store.dispatch('selectHistory')
+  }
 })
 export default class HistoryPage extends Vue {}
-  toFormatDate(date: Date) {
-    return new Date(date).toLocaleDateString('en-EN', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    });
-  }
-}
 </script>

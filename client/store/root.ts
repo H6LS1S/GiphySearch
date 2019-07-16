@@ -21,23 +21,24 @@ export const getters: GetterTree<RootState, RootState> = {
 };
 
 export const actions: ActionTree<RootState, RootState> = {
-  async nuxtServerInit({ state, dispatch }) {
-    if(!state.auth.loggedIn) return;
-
-    await dispatch('selectHistory');
-    await dispatch('selectByTag');
+  async selectGallery({ commit }) {
+    const { data } = await this.$axios.$get(`search/`);
+    return commit('setGallety', data)
   },
 
-  async selectByTag({ commit }, tag = '') {
-    const { data } = await this.$axios.$get(`search/${tag}`);
-    if (tag !== '') commit('setCurrentTag', tag)
-    commit('setGallety', Array.isArray(data) ? data : [data])
+  async searchByTag({ commit, dispatch }, tag) {
+    if (tag) {
+      commit('setCurrentTag', tag)
+      const { data } = await this.$axios.$get(`search/${tag}`);
+      return commit('setGallety', data)
+    }
+    return await dispatch('selectGallery')
   },
 
   async selectHistory({ commit }) {
     const data = await this.$axios.$get(`history/`);
-    commit('setHistory', data)
-  }
+    return commit('setHistory', data)
+  },
 };
 
 export const mutations: MutationTree<RootState> = {

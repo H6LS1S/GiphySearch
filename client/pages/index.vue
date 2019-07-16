@@ -9,7 +9,7 @@
           outlined
           clearable
           label="Search"
-          @change="selectByTag"
+          @change="searchByTag"
         />
       </v-flex>
       <v-flex
@@ -34,7 +34,7 @@
             <span class="text-truncate">{{ item.title }}</span>
             <v-spacer />
             <span>{{ item.likes }}</span>
-            <v-btn icon>
+            <v-btn icon @click="toogleLike(item.id)">
               <v-icon>mdi-heart</v-icon>
             </v-btn>
           </v-card-actions>
@@ -56,8 +56,11 @@ import { mapGetters, mapActions } from 'vuex';
     ...mapGetters(['getGallety', 'getCurrentTag']),
   },
   methods: {
-    ...mapActions(['selectByTag']),
+    ...mapActions(['searchByTag']),
   },
+  async fetch({ store }) {
+    return await store.dispatch('selectGallery')
+  }
 })
 export default class HomePage extends Vue {}
 </script>
