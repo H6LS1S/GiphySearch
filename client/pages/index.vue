@@ -2,14 +2,18 @@
   <v-container grid-list-lg fill-height>
     <v-layout align-center justify-center row wrap>
       <v-flex xs12>
-        <v-text-field
-          :value="getCurrentTag"
-          shaped
-          rounded
-          outlined
-          clearable
+        <v-autocomplete
+          :items="getHistory"
+          :loading="isLoading"
+          :search-input.sync="tag"
+          hide-selected
+          autofocus outlined shaped clearable
+          item-text="tag"
+          item-value="createAt"
           label="Search"
-          @change="searchByTag"
+          placeholder="Start typing to funny"
+          return-object
+          @blur="search = tag"
         />
       </v-flex>
       <v-flex v-for="(item, i) in getGallety" :key="i" xs12 sm6 md4 lg3 xl2>
@@ -42,7 +46,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Watch } from 'vue-property-decorator';
 import { mapGetters, mapActions } from 'vuex';
 
 @Component({
@@ -50,14 +54,25 @@ import { mapGetters, mapActions } from 'vuex';
     title: 'Home',
   },
   computed: {
-    ...mapGetters(['getGallety', 'getCurrentTag']),
+    ...mapGetters(['getGallety', 'getCurrentTag', 'getHistory']),
   },
   methods: {
-    ...mapActions(['searchByTag']),
-  },
-  async fetch({ store }) {
-    return await store.dispatch('selectGallery');
+    ...mapActions(['searchByTag', 'selectHistory']),
   },
 })
-export default class HomePage extends Vue {}
+export default class HomePage extends Vue {
+  isLoading: boolean = false;
+  search: string = null;
+  tag: string = null;
+
+  @Watch('search', { immediate: true, deep: true })
+  async onChangeSearch(tag, oldtag) {
+    if (!tag || tag === oldtag) return
+    if (this.isLoading) return
+
+    this.isLoading = true
+    await this.searchByTag(tag)
+    this.isLoading = false
+  }
+}
 </script>
