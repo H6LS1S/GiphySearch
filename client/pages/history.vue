@@ -44,7 +44,7 @@ import { mapGetters, mapActions } from 'vuex';
     ...mapActions(['selectHistory']),
   },
 })
-export default class HistoryPage extends Vue {
+export default class HistoryPage extends Vue {}
   toFormatDate(date: Date) {
     return new Date(date).toLocaleDateString('en-EN', {
       year: 'numeric',
