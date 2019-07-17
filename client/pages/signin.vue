@@ -12,6 +12,7 @@
       outlined
       autofocus
       label="Email"
+      autocomplete="email"
       prepend-icon="mdi-email-outline"
     />
     <TextField
@@ -23,6 +24,7 @@
       outlined
       counter
       label="Password"
+      autocomplete="current-password"
       prepend-icon="mdi-lock-outline"
       @click:append="show1 = !show1"
     />
