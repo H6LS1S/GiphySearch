@@ -44,7 +44,7 @@ const config: NuxtConfiguration = {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [ '~/mixins', '~/plugins/vee-validate'],
+  plugins: [ '~/mixins', '~/plugins/vee-validate', '~/plugins/axios'],
 
   modules: ['@nuxtjs/axios', '@nuxtjs/auth'],
 
