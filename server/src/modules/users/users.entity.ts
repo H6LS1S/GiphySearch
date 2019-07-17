@@ -32,7 +32,6 @@ export class Users extends BaseEntity {
   @OneToMany(_type => History, history => history.user, {
     nullable: true,
     cascade: true,
-    eager: true,
   })
   @JoinColumn({ name: 'history' })
   history: History[];
@@ -40,9 +39,7 @@ export class Users extends BaseEntity {
   @OneToMany(_type => Likes, likes => likes.user, {
     nullable: true,
     cascade: true,
-    eager: true,
   })
-  @JoinColumn({ name: 'likes' })
   likes: Likes[];
 
   @Column('datetime', {

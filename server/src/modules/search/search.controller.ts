@@ -1,4 +1,4 @@
-import { Param, Get } from '@nestjs/common';
+import { Body, Param, Post, Get } from '@nestjs/common';
 import { Controller, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 
@@ -17,6 +17,13 @@ export class SearchController {
     private readonly searchService: SearchService,
     private readonly historyService: HistoryService,
   ) {}
+
+  @Post()
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard('jwt'))
+  async selectIds(@Body() scope: [string]): Promise<[]> {
+    return await this.searchService.selectIds(scope);
+  }
 
   @Get()
   @ApiBearerAuth()

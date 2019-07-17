@@ -10,18 +10,18 @@ import { Users } from '../users/users.entity';
 export class LikesService {
   constructor(
     @InjectRepository(Likes)
-    private readonly historyRepository: Repository<Likes>,
+    private readonly likesRepository: Repository<Likes>,
   ) {}
 
   async create(user: Users, data: LikeCreateDto): Promise<Likes> {
-    return await this.historyRepository.save({
+    return await this.likesRepository.save({
       ...data,
       user: user,
     });
   }
 
   async selectByImage(image: string): Promise<Likes[]> {
-    return await this.historyRepository.find({
+    return await this.likesRepository.find({
       where: {
         image: image,
       },
@@ -29,7 +29,7 @@ export class LikesService {
   }
 
   async selectByUser(user: Users): Promise<Likes[]> {
-    return await this.historyRepository.find({
+    return await this.likesRepository.find({
       where: {
         user: user,
       },
@@ -37,7 +37,7 @@ export class LikesService {
   }
 
   async delete(user: Users, data: LikeCreateDto): Promise<DeleteResult> {
-    return await this.historyRepository.delete({
+    return await this.likesRepository.delete({
       image: data.image,
       user: user,
     });

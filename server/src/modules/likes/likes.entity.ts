@@ -26,6 +26,7 @@ export class Likes extends BaseEntity {
 
   @ManyToOne(_type => Users, users => users.likes, {
     nullable: false,
+    eager: true,
   })
   @JoinColumn({ name: 'user', referencedColumnName: 'id' })
   user: Users;
