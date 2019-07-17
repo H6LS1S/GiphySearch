@@ -8,9 +8,25 @@ export const state = (): State => ({
   gallery: [],
   history: [],
   currentTag: '',
+  pages: [
+    { icon: 'mdi-magnify', attr: { to: '/', exact: true } },
+    { icon: 'mdi-history', attr: { to: '/history', exact: true } },
+    {
+      icon: 'mdi-github-circle',
+      attr: {
+        href: 'https://github.com/HELSIS666/GiphySearch',
+        target: '_blank',
+      },
+    },
+  ],
 });
 
 export const getters: GetterTree<RootState, RootState> = {
+
+  getPages(state) {
+    return state.pages;
+  },
+
   getGallety(state) {
     return state.gallery;
   },

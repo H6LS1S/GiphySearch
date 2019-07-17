@@ -21,27 +21,7 @@
 
       <v-spacer />
 
-      <v-btn
-        v-for="(page, i) in pages"
-        :key="i"
-        :to="page.path"
-        exact
-        dark
-        icon
-        class="mx-3"
-      >
-        <v-icon v-html="page.icon" />
-      </v-btn>
-
-      <v-btn
-        href="https://github.com/HELSIS666/GiphySearch"
-        target="_blank"
-        dark
-        icon
-        class="mx-3 white--text"
-      >
-        <v-icon>mdi-github-circle</v-icon>
-      </v-btn>
+      <PageLink v-for="(page, i) in getPages" :key="i" :page="page"/>
     </v-app-bar>
 
     <v-content>
@@ -51,27 +31,7 @@
     <v-footer padless dark>
       <v-card flat tile width="100%" class="primary text-xs-center">
         <v-card-text>
-          <v-btn
-            v-for="(page, i) in pages"
-            :key="i"
-            :to="page.path"
-            exact
-            dark
-            icon
-            class="mx-3"
-          >
-            <v-icon v-html="page.icon" />
-          </v-btn>
-
-          <v-btn
-            href="https://github.com/HELSIS666/GiphySearch"
-            target="_blank"
-            dark
-            icon
-            class="mx-3 white--text"
-          >
-            <v-icon>mdi-github-circle</v-icon>
-          </v-btn>
+          <PageLink v-for="(page, i) in getPages" :key="i" :page="page"/>
         </v-card-text>
 
         <v-divider />
@@ -86,16 +46,18 @@
 
 <script>
 import { Component, Vue } from 'vue-property-decorator';
+import { mapGetters} from 'vuex';
 
 @Component({
   middleware: ['auth'],
+  components: {
+    PageLink: () => import('~/components/PageLink')
+  },
+  computed: {
+    ...mapGetters(['getPages']),
+  },
 })
 export default class DefaultLayuot extends Vue {
-  pages = [
-    { path: '/', icon: 'mdi-magnify' },
-    { path: '/history', icon: 'mdi-heart-outline' },
-  ];
-
   window = {
     width: 0,
     height: 0,
