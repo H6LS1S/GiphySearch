@@ -116,7 +116,6 @@ export default class DefaultLayuot extends Vue {
   }
 
   logout() {
-    this.$router.push('/admin/auth');
     return this.$auth.logout();
   }
 }

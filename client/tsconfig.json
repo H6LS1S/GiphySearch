@@ -22,7 +22,6 @@
       "dom"
     ],
     "types": [
-      "@nuxt/vue-app",
       "@types/node",
       "@types/webpack-env",
     ]

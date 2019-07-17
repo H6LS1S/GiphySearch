@@ -44,6 +44,14 @@ export const actions: ActionTree<RootState, RootState> = {
     const data = await this.$axios.$get(`history/`);
     return commit('setHistory', data);
   },
+
+  async toggleLike({ getters }, image) {
+    const history = getters.getHistory;
+    return await this.$axios.$post(`likes/`, {
+      image: image,
+      history: history[history.length - 1],
+    });
+  },
 };
 
 export const mutations: MutationTree<RootState> = {
