@@ -40,9 +40,15 @@
       @click:append="show2 = !show2"
     />
 
-    <v-btn color="primary" block @click="singUp">
+    <v-btn :disabled="invalid" color="primary" block @click="singUp">
       Sign up
     </v-btn>
+
+    <v-flex pt-2>
+      <v-alert v-if="error" icon="mdi-shield-lock-outline" outlined type="error">
+        Error: Unauthorized
+      </v-alert>
+    </v-flex>
   </ValidationObserver>
 </template>
 
@@ -65,6 +71,7 @@ export default class SignUpPage extends Vue {
   password: string = '';
   show1: boolean = false;
   show2: boolean = false;
+  error: boolean = false;
 
   changeVisibility(condition) {
     if (condition) {
@@ -77,22 +84,23 @@ export default class SignUpPage extends Vue {
   async singUp() {
     const validation = await this.$refs.observer.validate();
     if (!validation) return;
+    try {
+      await this.$axios.post('users', {
+        email: this.email,
+        password: this.password,
+      })
 
-    await this.$axios.post('users', {
-      email: this.email,
-      password: this.password,
-    });
-
-    return await this.$auth
-      .loginWith('local', {
+      await this.$auth.loginWith('local', {
         data: {
           email: this.email,
           password: this.password,
         },
       })
-      .then(data => {
-        this.$router.push('/');
-      });
+
+      this.$router.push('/');
+    } catch (err) {
+      this.error = err;
+    }
   }
 }
 </script>

@@ -29,9 +29,15 @@
       @click:append="show1 = !show1"
     />
 
-    <v-btn color="primary" block @click="singIn">
+    <v-btn :disabled="invalid" color="primary" block @click="singIn">
       Sign in
     </v-btn>
+
+    <v-flex pt-2>
+      <v-alert v-if="error" icon="mdi-shield-lock-outline" outlined type="error">
+        Error: Unauthorized
+      </v-alert>
+    </v-flex>
   </ValidationObserver>
 </template>
 
@@ -53,6 +59,7 @@ export default class SignInPage extends Vue {
   email: string = '';
   password: string = '';
   show1: boolean = false;
+  error: boolean = false;
 
   changeVisibility(condition) {
     if (condition) {
@@ -65,17 +72,18 @@ export default class SignInPage extends Vue {
   async singIn() {
     const validation = await this.$refs.observer.validate();
     if (!validation) return;
-
-    return await this.$auth
-      .loginWith('local', {
+    try {
+      await this.$auth.loginWith('local', {
         data: {
           email: this.email,
           password: this.password,
         },
       })
-      .then(data => {
-        this.$router.push('/');
-      });
+
+      this.$router.push('/');
+    } catch (err) {
+      this.error = err;
+    }
   }
 }
 </script>
