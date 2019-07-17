@@ -60,7 +60,10 @@ import { mapGetters, mapActions } from 'vuex';
     ...mapGetters(['getGallety', 'getCurrentTag', 'getHistory']),
   },
   methods: {
-    ...mapActions(['searchByTag', 'selectHistory', 'toggleLike']),
+    ...mapActions(['searchByTag', 'toggleLike']),
+  },
+  async fetch({ store }) {
+    return await store.dispatch('selectGallery');
   },
 })
 export default class HomePage extends Vue {
