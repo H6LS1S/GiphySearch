@@ -36,6 +36,13 @@ export class LikesService {
     });
   }
 
+  async comparison(data): Promise<any> {
+    for await (let image of data) {
+      image.likes = await this.selectByImage(image.id);
+    }
+    return data;
+  }
+
   async delete(user: Users, data: LikeCreateDto): Promise<DeleteResult> {
     return await this.likesRepository.delete({
       image: data.image,
