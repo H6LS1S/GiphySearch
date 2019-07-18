@@ -11,18 +11,23 @@
           <span v-html="item.tag" class="title" />
           <v-spacer />
           <span v-html="toFormatDate(item.createAt)" class="grey--text" />
-          <v-flex v-if="item.favorites" xs12>
+          <v-flex v-if="item.likes.length" xs12>
             <v-container grid-list-md pa-0>
               <span class="caption mb-2 grey--text">Favorites:</span>
               <v-layout align-center justify-start row wrap>
                 <v-flex
-                  v-for="(favorite, j) in item.favorites"
+                  v-for="(like, j) in item.likes"
                   :key="j"
                   xs4
                   sm3
                   md3
                 >
-                  <v-img :src="favorite.src" aspect-ratio="1" />
+                  <v-img
+                    :src="like.images['480w_still'].url"
+                    :lazy-src="like.images['480w_still'].url"
+                    aspect-ratio="1"
+                    class="grey lighten-2"
+                  />
                 </v-flex>
               </v-layout>
             </v-container>
@@ -52,5 +57,14 @@ import { mapGetters } from 'vuex';
     return await store.dispatch('selectHistory');
   },
 })
-export default class HistoryPage extends Vue {}
+export default class HistoryPage extends Vue {
+  async getImage(favorite) {
+    const image = await this.$axios.$post('search/', [favorite.image]);
+    console.log(image);
+    return {
+      src: image[0].images['480w_still'].url,
+      lazy: image[0].images['480w_still'].url,
+    };
+  }
+}
 </script>
