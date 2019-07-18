@@ -31,10 +31,10 @@ export class Likes extends BaseEntity {
   @JoinColumn({ name: 'user', referencedColumnName: 'id' })
   user: Users;
 
-  @ManyToOne(_type => History, history => history.likes, {
+  @ManyToOne(_type => History, history => history.user, {
     nullable: true,
   })
-  history?: History;
+  history: History;
 
   @Column('datetime', {
     nullable: false,

@@ -30,7 +30,6 @@ export class History extends BaseEntity {
 
   @OneToMany(_type => Likes, likes => likes.history, {
     nullable: true,
-    cascade: true,
     eager: true,
   })
   @JoinColumn({ name: 'likes' })

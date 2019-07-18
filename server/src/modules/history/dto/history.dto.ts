@@ -9,8 +9,4 @@ export class HistoryCreateDto {
 	@IsString()
 	@ApiModelProperty()
 	readonly tag: string;
-
-	@IsArray()
-	@ApiModelProperty()
-	readonly likes: any[];
 }
