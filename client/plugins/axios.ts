@@ -8,7 +8,7 @@ const routingRedirection = {
 
 export default function({ $axios, store, redirect }) {
   $axios.onError(error => {
-    const { status } = error.response.status;
+    const { status } = error.response;
     redirect(routingRedirection[status]);
   });
 }
