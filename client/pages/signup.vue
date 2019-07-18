@@ -45,7 +45,12 @@
     </v-btn>
 
     <v-flex pt-2>
-      <v-alert v-if="error" icon="mdi-shield-lock-outline" outlined type="error">
+      <v-alert
+        v-if="error"
+        icon="mdi-shield-lock-outline"
+        outlined
+        type="error"
+      >
         Error: Unauthorized
       </v-alert>
     </v-flex>
@@ -88,14 +93,14 @@ export default class SignUpPage extends Vue {
       await this.$axios.post('users', {
         email: this.email,
         password: this.password,
-      })
+      });
 
       await this.$auth.loginWith('local', {
         data: {
           email: this.email,
           password: this.password,
         },
-      })
+      });
 
       this.$router.push('/');
     } catch (err) {

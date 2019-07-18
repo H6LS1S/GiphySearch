@@ -15,13 +15,7 @@
             <v-container grid-list-md pa-0>
               <span class="caption mb-2 grey--text">Favorites:</span>
               <v-layout align-center justify-start row wrap>
-                <v-flex
-                  v-for="(like, j) in item.likes"
-                  :key="j"
-                  xs4
-                  sm3
-                  md3
-                >
+                <v-flex v-for="(like, j) in item.likes" :key="j" xs4 sm3 md3>
                   <v-img
                     :src="like.images['480w_still'].url"
                     :lazy-src="like.images['480w_still'].url"

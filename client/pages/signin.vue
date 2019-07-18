@@ -34,7 +34,12 @@
     </v-btn>
 
     <v-flex pt-2>
-      <v-alert v-if="error" icon="mdi-shield-lock-outline" outlined type="error">
+      <v-alert
+        v-if="error"
+        icon="mdi-shield-lock-outline"
+        outlined
+        type="error"
+      >
         Error: Unauthorized
       </v-alert>
     </v-flex>
@@ -78,7 +83,7 @@ export default class SignInPage extends Vue {
           email: this.email,
           password: this.password,
         },
-      })
+      });
 
       this.$router.push('/');
     } catch (err) {

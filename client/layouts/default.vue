@@ -21,7 +21,7 @@
 
       <v-spacer />
 
-      <PageLink v-for="(page, i) in getPages" :key="i" :page="page"/>
+      <PageLink v-for="(page, i) in getPages" :key="i" :page="page" />
     </v-app-bar>
 
     <v-content>
@@ -31,7 +31,7 @@
     <v-footer padless dark>
       <v-card flat tile width="100%" class="primary text-xs-center">
         <v-card-text>
-          <PageLink v-for="(page, i) in getPages" :key="i" :page="page"/>
+          <PageLink v-for="(page, i) in getPages" :key="i" :page="page" />
         </v-card-text>
 
         <v-divider />
@@ -46,12 +46,12 @@
 
 <script>
 import { Component, Vue } from 'vue-property-decorator';
-import { mapGetters} from 'vuex';
+import { mapGetters } from 'vuex';
 
 @Component({
   middleware: ['auth'],
   components: {
-    PageLink: () => import('~/components/PageLink')
+    PageLink: () => import('~/components/PageLink'),
   },
   computed: {
     ...mapGetters(['getPages']),

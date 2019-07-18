@@ -22,7 +22,6 @@ export const state = (): State => ({
 });
 
 export const getters: GetterTree<RootState, RootState> = {
-
   getPages(state) {
     return state.pages;
   },
@@ -59,8 +58,8 @@ export const actions: ActionTree<RootState, RootState> = {
   async selectHistory({ commit }) {
     const data = await this.$axios.$get(`history/`);
     for await (let item of data) {
-      if(item.likes.length) {
-        let likesId = item.likes.map((like) => like.image)
+      if (item.likes.length) {
+        let likesId = item.likes.map(like => like.image);
         item.likes = await this.$axios.$post('search/', likesId);
       }
     }
